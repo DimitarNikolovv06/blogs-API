@@ -3,8 +3,6 @@ const totalLikes = (arr) => {
 };
 
 const favoriteBlog = (arr) => {
-  // return arr.map(blog => blog.likes).reduce((max,cur) => max < cur ? cur : max,0);
-
   return arr.reduce((max, cur) => (max.likes < cur.likes ? cur : max), {
     likes: 0,
   });
