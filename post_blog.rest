@@ -2,8 +2,8 @@ POST http://localhost:3001/api/blogs
 Content-Type: application/json
 
 {
-    "title":"How i learned to think",
-    "author": "Ivan Ivanov",
-    "url":"https://someblog2.com",
-    "likes": 210
+    "title":"Async awaiting intensifies",
+    "author": "Dimitar Nikolov",
+    "url":"https://dnnotes-netlify.app",
+    "likes": 322
 }
