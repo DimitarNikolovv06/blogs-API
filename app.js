@@ -20,8 +20,8 @@ mongoose
 
 app.use(cors());
 app.use(express.json());
-app.use(middleware.reqLogger);
 app.use("/api/blogs", router);
+app.use(middleware.reqLogger);
 
 app.use(middleware.unknowEndpoint);
 app.use(middleware.errorHandler);
