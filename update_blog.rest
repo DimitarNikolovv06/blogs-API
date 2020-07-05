@@ -1,0 +1,9 @@
+PUT http://localhost:3001/api/blogs/5eff192c54f1670c18406a31
+Content-Type: application/json
+
+{
+    "title" : "stuff",
+    "author": "Ivan Ivanov",
+    "url":"asd.com",
+    "likes": 4
+}

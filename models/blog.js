@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const uniqueValidator = require("mongoose-unique-validator");
 
 const blogSchema = mongoose.Schema({
   title: String,
@@ -14,5 +15,7 @@ blogSchema.set("toJSON", {
     delete retDoc.__v;
   },
 });
+
+// blogSchema.plugin(uniqueValidator);
 
 module.exports = new mongoose.model("Blog", blogSchema);

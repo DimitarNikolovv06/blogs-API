@@ -13,6 +13,10 @@ blogsRouter.get("/", async (req, res) => {
 blogsRouter.post("/", async (req, res) => {
   const newBlog = new Blog(req.body);
 
+  if (!newBlog.title && !newBlog.url) {
+    return res.status(400).end();
+  }
+
   const blogSaved = await newBlog.save();
 
   res.status(200).json(blogSaved);
@@ -25,6 +29,22 @@ blogsRouter.get("/:id", async (req, res) => {
   const blog = await Blog.find({ _id: req.params.id });
 
   res.json(blog);
+});
+
+blogsRouter.delete("/:id", async (req, res, next) => {
+  try {
+    await Blog.deleteOne({ _id: req.params.id });
+
+    return res.status(204).end();
+  } catch (error) {
+    next(error);
+  }
+});
+
+blogsRouter.put("/:id", async (req, res) => {
+  Blog.updateOne({ _id: req.params.id }, { ...req.body }, () => {
+    return res.status(204).end();
+  });
 });
 
 module.exports = blogsRouter;
