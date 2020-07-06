@@ -33,12 +33,12 @@ blogsRouter.get("/:id", async (req, res) => {
 blogsRouter.delete("/:id", async (req, res) => {
   await Blog.deleteOne({ _id: req.params.id });
 
-  return res.status(204).end();
+  return res.status(200).end();
 });
 
 blogsRouter.put("/:id", async (req, res) => {
   await Blog.updateOne({ _id: req.params.id }, { ...req.body }, () => {
-    return res.status(204).end();
+    return res.status(200).end();
   });
 });
 

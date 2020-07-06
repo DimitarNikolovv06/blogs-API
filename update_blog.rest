@@ -1,9 +1,9 @@
-PUT http://localhost:3001/api/blogs/5eff192c54f1670c18406a31
+PUT http://localhost:3001/api/blogs/5f00a6676c73bf3ef0249dcc
 Content-Type: application/json
 
 {
     "title" : "stuff",
     "author": "Ivan Ivanov",
     "url":"asd.com",
-    "likes": 4
+    "likes": 6
 }

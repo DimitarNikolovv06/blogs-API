@@ -53,15 +53,47 @@ describe("Blogs backend tests:", () => {
       return api.post("/api/blogs", newBlog).expect(400);
     }
 
-    await api.post("/api/blogs", newBlog).expect(200);
+    const res = await api.post("/api/blogs", newBlog);
+
+    expect(res.status).toBe(200);
   });
 
-  test("delete blog", () => {
-    api.delete(`/api/blogs/:id`).expect(204);
+  test("delete blog", async () => {
+    const blogsInDB = await helper.blogsInDB();
+
+    await api.delete(`/api/blogs/${blogsInDB[0].id}`).expect(200);
+
+    const updatedBlogsInDB = await helper.blogsInDB();
+
+    expect(updatedBlogsInDB).toHaveLength(blogsInDB.length - 1);
   });
 
-  test("update blog", () => {
-    api.put("/blog/api/:id").expect(204);
+  test("update blog", async () => {
+    const blogsInDB = await helper.blogsInDB();
+
+    blogsInDB[0].author = "Bethoven";
+
+    await api.put(`/api/blogs/${blogsInDB[0].id}`, blogsInDB[0]).expect(200);
+  });
+
+  test("invalid id returns 404", async () => {
+    const invalidId = await helper.nonExistingId();
+
+    api.get(`/api/blogs/${invalidId}`).expect(404);
+  });
+
+  test("test returns 400 if data is invalid", async () => {
+    const blog = {
+      author: "aaa",
+    };
+
+    const blogObj = new Blog(blog);
+
+    await api.post("/api/blogs").send(blogObj).expect(400);
+
+    const allBlogs = await helper.blogsInDB();
+
+    expect(allBlogs).toHaveLength(helper.initialBlogs.length);
   });
 });
 
