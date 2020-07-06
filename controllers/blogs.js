@@ -1,6 +1,5 @@
 const blogsRouter = require("express").Router();
 const Blog = require("../models/blog");
-const logger = require("../utils/logger");
 
 //get all blogs
 blogsRouter.get("/", async (req, res) => {
@@ -28,21 +27,17 @@ blogsRouter.get("/:id", async (req, res) => {
 
   const blog = await Blog.find({ _id: req.params.id });
 
-  res.json(blog);
+  blog ? res.json(blog) : res.status(404).end();
 });
 
-blogsRouter.delete("/:id", async (req, res, next) => {
-  try {
-    await Blog.deleteOne({ _id: req.params.id });
+blogsRouter.delete("/:id", async (req, res) => {
+  await Blog.deleteOne({ _id: req.params.id });
 
-    return res.status(204).end();
-  } catch (error) {
-    next(error);
-  }
+  return res.status(204).end();
 });
 
 blogsRouter.put("/:id", async (req, res) => {
-  Blog.updateOne({ _id: req.params.id }, { ...req.body }, () => {
+  await Blog.updateOne({ _id: req.params.id }, { ...req.body }, () => {
     return res.status(204).end();
   });
 });

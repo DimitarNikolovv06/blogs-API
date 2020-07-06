@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 const app = require("../app");
 const supertest = require("supertest");
-const initialBlogs = require("../utils/test_helper");
+const helper = require("./test_helper");
 const Blog = require("../models/blog");
 
 const api = supertest(app);
@@ -9,19 +9,27 @@ const api = supertest(app);
 beforeEach(async () => {
   await Blog.deleteMany({});
 
-  let blogObj = new Blog(initialBlogs[0]);
-  await blogObj.save();
+  const blogObjects = helper.initialBlogs.map((b) => new Blog(b));
 
-  blogObj = new Blog(initialBlogs[1]);
-  await blogObj.save();
+  const promiseArray = blogObjects.map((promise) => promise.save());
+
+  await Promise.all(promiseArray);
 });
+/*Promise.all runs promises in parallel if they have to be executed in particular order it can be used a for...of block:
+
+for(let blog of helper.initialBlogs){
+  let blogObject = new Blog(blog)
+
+  await blogObject.save()
+}
+*/
 
 describe("Blogs backend tests:", () => {
   test("get blogs", async () => {
     const res = await api.get("/api/blogs");
 
     expect(res.type).toBe("application/json");
-    expect(res.body).toHaveLength(2);
+    expect(res.body).toHaveLength(helper.initialBlogs.length);
   });
 
   test("id defined", async () => {
