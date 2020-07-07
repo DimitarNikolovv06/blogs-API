@@ -9,9 +9,9 @@ const blogSchema = mongoose.Schema({
   },
   url: String,
   likes: Number,
-  authorID: {
+  user: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: "AuthorID",
+    ref: "User",
   },
 });
 

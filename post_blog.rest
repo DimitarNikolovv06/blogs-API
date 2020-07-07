@@ -3,7 +3,8 @@ Content-Type: application/json
 
 {
     "title":"Async awaiting intensifies",
-    "author": "Dimitar Nikolov",
+    "author": "ObiOne",
     "url":"https://dnnotes-netlify.app",
-    "likes": 322
+    "likes": 322,
+    "user": "5f04ea55c184a644d8489c52"
 }
