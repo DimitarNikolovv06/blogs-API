@@ -3,9 +3,16 @@ const uniqueValidator = require("mongoose-unique-validator");
 
 const blogSchema = mongoose.Schema({
   title: String,
-  author: String,
+  author: {
+    type: String,
+    unique: true,
+  },
   url: String,
   likes: Number,
+  authorID: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "AuthorID",
+  },
 });
 
 blogSchema.set("toJSON", {
@@ -16,6 +23,6 @@ blogSchema.set("toJSON", {
   },
 });
 
-// blogSchema.plugin(uniqueValidator);
+blogSchema.plugin(uniqueValidator);
 
 module.exports = new mongoose.model("Blog", blogSchema);

@@ -9,8 +9,8 @@ const reqLogger = (req, res) => {
   logger.info("---");
 };
 
-const unknowEndpoint = (req, res) => {
-  return res.status(404).send("Not Found");
+const unknownEndpoint = (req, res) => {
+  res.status(404).send({ error: "Not Found" }).end();
 };
 
 const errorHandler = (err, req, res, next) => {
@@ -27,6 +27,6 @@ const errorHandler = (err, req, res, next) => {
 
 module.exports = {
   reqLogger,
-  unknowEndpoint,
+  unknownEndpoint,
   errorHandler,
 };
