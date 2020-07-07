@@ -1,10 +1,11 @@
 POST http://localhost:3001/api/blogs
 Content-Type: application/json
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IktvbmNobyIsImlkIjoiNWYwNGVhNTVjMTg0YTY0NGQ4NDg5YzUyIiwiaWF0IjoxNTk0MTYyNDA1fQ.Lot6xJCCRq-ZY5ElPdwLj39-3YTBEV8cxIa9G3Xo
 
 {
-    "title":"Async awaiting intensifies",
-    "author": "ObiOne",
-    "url":"https://dnnotes-netlify.app",
-    "likes": 322,
+    "title":"Token Authentication",
+    "author": "Ivan",
+    "url":"https://theIvan",
+    "likes": 22,
     "user": "5f04ea55c184a644d8489c52"
 }
