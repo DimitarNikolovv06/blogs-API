@@ -3,6 +3,7 @@ const app = require("../app");
 const supertest = require("supertest");
 const helper = require("./test_helper");
 const Blog = require("../models/blog");
+const User = require("../models/user");
 
 const api = supertest(app);
 
@@ -40,8 +41,15 @@ describe("Blogs backend tests:", () => {
 
   test("post blog", async () => {
     const newBlog = new Blog({
-      author: "a",
+      title: "Token middleware",
+      author: "Vasil Bojkov",
+      url: "https://vbojkov.com",
+      likes: 700,
+      user: "5f04ea55c184a644d8489c52",
     });
+
+    const token =
+      "bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IktvbmNobyIsImlkIjoiNWYwNGVhNTVjMTg0YTY0NGQ4NDg5YzUyIiwiaWF0IjoxNTk0MjIxMDg5fQ.mG9nYy6o5CTC7mh2Co49zrfM8XOC--l3MxfZqiD4F90";
 
     if (!newBlog.likes) {
       newBlog.likes = 0;
@@ -53,9 +61,15 @@ describe("Blogs backend tests:", () => {
       return api.post("/api/blogs", newBlog).expect(400);
     }
 
-    const res = await api.post("/api/blogs", newBlog);
+    if (!token) {
+      expect(status).toBe(401);
+    }
 
-    expect(res.status).toBe(200);
+    await api
+      .post("/api/blogs")
+      .send(newBlog)
+      .set("Authorization", token)
+      .expect(200);
   });
 
   test("delete blog", async () => {

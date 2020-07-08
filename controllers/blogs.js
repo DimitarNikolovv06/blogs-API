@@ -31,7 +31,7 @@ blogsRouter.post("/", async (req, res) => {
   const decodedToken = jwt.verify(req.token, process.env.SECRET);
 
   if (!req.token || !decodedToken) {
-    return res.status(404).json({ error: "token missing or invalid" });
+    return res.status(401).json({ error: "token missing or invalid" });
   }
 
   const user = await User.findById(decodedToken.id);
@@ -42,12 +42,16 @@ blogsRouter.post("/", async (req, res) => {
     return res.status(400).end();
   }
 
-  const blogSaved = await newBlog.save();
+  if (req.body.user === decodedToken.id) {
+    const blogSaved = await newBlog.save();
 
-  user.blogs = user.blogs.concat(blogSaved._id);
-  await user.save();
+    user.blogs = user.blogs.concat(blogSaved._id);
+    await user.save();
 
-  res.status(200).json(blogSaved);
+    return res.status(200).json(blogSaved);
+  }
+
+  res.status(401).send({ error: "cannot add blogs to another user" });
 });
 
 //get single blog
