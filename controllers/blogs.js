@@ -38,8 +38,12 @@ blogsRouter.post("/", async (req, res) => {
 
   const newBlog = new Blog(req.body);
 
-  if (!newBlog.title && !newBlog.url) {
-    return res.status(400).end();
+  if (!newBlog.title || !newBlog.url) {
+    return res.status(400).json({ error: "the blog must have title and url" });
+  }
+
+  if (!newBlog.likes) {
+    newBlog.likes = 0;
   }
 
   if (req.body.user === decodedToken.id) {
@@ -51,13 +55,11 @@ blogsRouter.post("/", async (req, res) => {
     return res.status(200).json(blogSaved);
   }
 
-  res.status(401).send({ error: "cannot add blogs to another user" });
+  res.status(401).send("cannot add blogs to another user").end();
 });
 
 //get single blog
 blogsRouter.get("/:id", async (req, res) => {
-  // console.log(req.params.id);
-
   const blog = await Blog.find({ _id: req.params.id });
 
   blog ? res.json(blog) : res.status(404).end();
@@ -82,9 +84,9 @@ blogsRouter.delete("/:id", async (req, res) => {
 });
 
 blogsRouter.put("/:id", async (req, res) => {
-  await Blog.updateOne({ _id: req.params.id }, { ...req.body }, () => {
-    return res.status(200).end();
-  });
+  const result = await Blog.updateOne({ _id: req.params.id }, { ...req.body });
+
+  return res.json(result);
 });
 
 module.exports = blogsRouter;

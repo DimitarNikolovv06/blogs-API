@@ -1,11 +1,11 @@
 POST http://localhost:3001/api/blogs
 Content-Type: application/json
-Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkRpbWEiLCJpZCI6IjVmMDVmMDU2ODEwNDY5NGQ5MDkwMDA5MiIsImlhdCI6MTU5NDIyNDgwMH0.mxOGJ6RxcO9LgOGHUQLP0bDkFpPIa1FOIBBz-xsJyz4
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkRpbWEiLCJpZCI6IjVmMDVmMDU2ODEwNDY5NGQ5MDkwMDA5MiIsImlhdCI6MTU5NDQxNzUxNH0.9ImeQ2ctMfX9OHpf-PE7IhI3WFCYd6hY9rz09uF0NNU
 
 {
-    "title":"Token middleware11",
+    "title":"Token middleware",
     "author": "HRPC",
     "url":"https://hrpc",
-    "likes": 22,
+    "likes": 100,
     "user": "5f04ea55c184a644d8489c52"
 }

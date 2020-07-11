@@ -32,4 +32,20 @@ usersRouter.post("/", async (req, res) => {
   return res.json(result);
 });
 
+usersRouter.get("/:id", async (req, res) => {
+  const user = await User.findById(req.params.id);
+
+  return user
+    ? res.json(user)
+    : res.status(404).send({ error: "not found user" });
+});
+
+usersRouter.get("/?username=:username", async (req, res) => {
+  const user = await User.find({}).filter(
+    (u) => u.username === req.params.username
+  );
+
+  return user ? res.json(user) : res.status(404).send("not found");
+});
+
 module.exports = usersRouter;
