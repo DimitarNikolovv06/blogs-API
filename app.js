@@ -9,6 +9,7 @@ const loginRouter = require("./controllers/login");
 const blogsRouter = require("./controllers/blogs");
 const usersRouter = require("./controllers/users");
 const middleware = require("./utils/middleware");
+const testingRouter = require("./controllers/testing");
 
 logger.info("connecting to", config.MONGODB_URI);
 
@@ -27,6 +28,9 @@ app.use(middleware.getToken);
 app.use("/api/login", loginRouter);
 app.use("/api/users", usersRouter);
 app.use("/api/blogs", blogsRouter);
+if (process.env.NODE_ENV === "test") {
+  app.use("/api/testing", testingRouter);
+}
 app.use(middleware.reqLogger);
 
 app.use(middleware.unknownEndpoint);

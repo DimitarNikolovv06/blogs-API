@@ -6,14 +6,23 @@ const initialBlogs = [
     author: "Tester",
     url: "test.com",
     likes: 12,
+    user: "5f0dd1c5d3ac530be0b5456a",
   },
   {
     title: "Test2",
     author: "Tester2",
     url: "test2.com",
     likes: 16,
+    user: "5f0dd1c5d3ac530be0b5456a",
   },
 ];
+
+const user = {
+  blogs: [],
+  name: "bob",
+  username: "bobcho",
+  password: 11111,
+};
 
 const nonExistingId = async () => {
   const blog = new Blog({
@@ -39,4 +48,5 @@ module.exports = {
   initialBlogs,
   nonExistingId,
   blogsInDB,
+  user,
 };

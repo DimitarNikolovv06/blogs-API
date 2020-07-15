@@ -3,7 +3,6 @@ const app = require("../app");
 const supertest = require("supertest");
 const helper = require("./test_helper");
 const Blog = require("../models/blog");
-const User = require("../models/user");
 
 const api = supertest(app);
 
@@ -20,7 +19,7 @@ beforeEach(async () => {
 
 for(let blog of helper.initialBlogs){
   let blogObject = new Blog(blog)
-
+  
   await blogObject.save()
 }
 */
@@ -96,14 +95,14 @@ describe("Blogs backend tests:", () => {
     api.get(`/api/blogs/${invalidId}`).expect(404);
   });
 
-  test("test returns 400 if data is invalid", async () => {
+  test("test returns 401 if data is invalid", async () => {
     const blog = {
       author: "aaa",
     };
 
     const blogObj = new Blog(blog);
 
-    await api.post("/api/blogs").send(blogObj).expect(400);
+    await api.post("/api/blogs").send(blogObj).expect(401);
 
     const allBlogs = await helper.blogsInDB();
 

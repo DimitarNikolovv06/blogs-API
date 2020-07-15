@@ -23,6 +23,12 @@ blogSchema.set("toJSON", {
   },
 });
 
+blogSchema.pre("find", function (next) {
+  this.populate("user");
+
+  next();
+});
+
 blogSchema.plugin(uniqueValidator);
 
 module.exports = new mongoose.model("Blog", blogSchema);

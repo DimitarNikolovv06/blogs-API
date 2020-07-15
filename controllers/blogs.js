@@ -16,11 +16,7 @@ const logger = require("../utils/logger");
 
 //get all blogs
 blogsRouter.get("/", async (req, res) => {
-  const allBlogs = await Blog.find({}).populate("user", {
-    username: 1,
-    name: 1,
-    id: 1,
-  });
+  const allBlogs = await Blog.find({});
 
   res.json(allBlogs);
 });
