@@ -1,6 +1,7 @@
-POST http://localhost:3001/api/blogs/5f46f307518ea25df8928115/comments
+POST http://localhost:3001/api/blogs/5f04fd51f400102bb82059e6/comments
 Content-Type: application/json
 
+
 {
-    "comment": "I am comment"
+    "comment": "BRO PLS"
 }

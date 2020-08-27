@@ -3,7 +3,6 @@ const User = require("../models/user");
 const Blog = require("../models/blog");
 const jwt = require("jsonwebtoken");
 const logger = require("../utils/logger");
-const blog = require("../models/blog");
 
 // const getTokenFrom = (req) => {
 //   const authorization = req.get("authorization");
@@ -52,7 +51,7 @@ blogsRouter.post("/", async (req, res) => {
     return res.status(200).json(blogSaved);
   }
 
-  res.status(401).send("cannot add blogs to another user").end();
+  res.status(401).json({ error: "cannot add blogs to another user" });
 });
 
 //get single blog
@@ -90,19 +89,13 @@ blogsRouter.put("/:id", async (req, res) => {
 blogsRouter.get("/:id/comments", async (req, res) => {
   const [blog] = await Blog.find({ _id: req.params.id });
 
-  logger.info(blog);
-
   return res.send({ comments: blog.comments });
 });
 
 blogsRouter.post("/:id/comments", async (req, res) => {
   const [blog] = await Blog.find({ _id: req.params.id });
 
-  logger.info(blog);
-
   blog.comments = blog.comments.concat(req.body.comment);
-
-  logger.info(blog.comments);
 
   await blog.save();
 

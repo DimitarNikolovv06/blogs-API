@@ -1,9 +1,12 @@
 const mongoose = require("mongoose");
-const uniqueValidator = require("mongoose-unique-validator");
+// const uniqueValidator = require("mongoose-unique-validator");
 
 const blogSchema = mongoose.Schema({
   title: String,
-  author: String,
+  author: {
+    unique: false,
+    type: String,
+  },
   url: String,
   likes: Number,
   user: {
@@ -23,11 +26,10 @@ blogSchema.set("toJSON", {
 
 blogSchema.pre("find", function (next) {
   this.populate("User");
-  this.populate("Blog");
 
   next();
 });
 
-blogSchema.plugin(uniqueValidator);
+// blogSchema.plugin(uniqueValidator);
 
 module.exports = new mongoose.model("Blog", blogSchema);
