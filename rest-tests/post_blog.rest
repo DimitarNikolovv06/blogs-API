@@ -1,11 +1,12 @@
 POST http://localhost:3001/api/blogs
 Content-Type: application/json
-Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkRpbWEiLCJpZCI6IjVmMDVmMDU2ODEwNDY5NGQ5MDkwMDA5MiIsImlhdCI6MTU5NDQxNzUxNH0.9ImeQ2ctMfX9OHpf-PE7IhI3WFCYd6hY9rz09uF0NNU
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkRpbWEiLCJpZCI6IjVmMDVmMDU2ODEwNDY5NGQ5MDkwMDA5MiIsImlhdCI6MTU5ODQ2MDk5M30.LxQH_yvCH79XyY93_6dhde1aleWLzSxjr5E3Zso9BIM
 
 {
-    "title":"Token middleware",
-    "author": "HRPC",
-    "url":"https://hrpc",
-    "likes": 100,
-    "user": "5f04ea55c184a644d8489c52"
+    "title":"Comments on Blogs3",
+    "author": "Tomys",
+    "url":"https://nocomments",
+    "likes": 0,
+    "user": "5f05f0568104694d90900092",
+    "comments": ["Nice blog", "what", "th e fuck"]
 }

@@ -32,6 +32,7 @@ usersRouter.post("/", async (req, res) => {
   return res.json(result);
 });
 
+//get single user
 usersRouter.get("/:id", async (req, res) => {
   const user = await User.findById(req.params.id);
 

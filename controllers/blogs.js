@@ -3,6 +3,7 @@ const User = require("../models/user");
 const Blog = require("../models/blog");
 const jwt = require("jsonwebtoken");
 const logger = require("../utils/logger");
+const blog = require("../models/blog");
 
 // const getTokenFrom = (req) => {
 //   const authorization = req.get("authorization");
@@ -61,6 +62,7 @@ blogsRouter.get("/:id", async (req, res) => {
   blog ? res.json(blog) : res.status(404).end();
 });
 
+//delete blog
 blogsRouter.delete("/:id", async (req, res) => {
   const blog = await Blog.findById(req.params.id);
 
@@ -83,6 +85,28 @@ blogsRouter.put("/:id", async (req, res) => {
   const result = await Blog.updateOne({ _id: req.params.id }, { ...req.body });
 
   return res.json(result);
+});
+
+blogsRouter.get("/:id/comments", async (req, res) => {
+  const [blog] = await Blog.find({ _id: req.params.id });
+
+  logger.info(blog);
+
+  return res.send({ comments: blog.comments });
+});
+
+blogsRouter.post("/:id/comments", async (req, res) => {
+  const [blog] = await Blog.find({ _id: req.params.id });
+
+  logger.info(blog);
+
+  blog.comments = blog.comments.concat(req.body.comment);
+
+  logger.info(blog.comments);
+
+  await blog.save();
+
+  return res.status(200).json(blog);
 });
 
 module.exports = blogsRouter;

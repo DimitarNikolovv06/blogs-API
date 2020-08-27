@@ -3,16 +3,14 @@ const uniqueValidator = require("mongoose-unique-validator");
 
 const blogSchema = mongoose.Schema({
   title: String,
-  author: {
-    type: String,
-    unique: true,
-  },
+  author: String,
   url: String,
   likes: Number,
   user: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: "User",
+    ref: "user",
   },
+  comments: Array,
 });
 
 blogSchema.set("toJSON", {
@@ -24,7 +22,8 @@ blogSchema.set("toJSON", {
 });
 
 blogSchema.pre("find", function (next) {
-  this.populate("user");
+  this.populate("User");
+  this.populate("Blog");
 
   next();
 });
